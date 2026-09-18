@@ -103,15 +103,53 @@
       });
     } else { argsWrap.remove(); }
 
+    const pasoWrap = root.querySelector('[data-role="pasoAPasoWrap"]');
     const ejemploWrap = root.querySelector('[data-role="ejemploWrap"]');
-    if (fn.ejemplo && fn.ejemplo.length) {
-      const ul = ejemploWrap.querySelector('[data-role="ejemplo"]');
-      fn.ejemplo.forEach((l) => {
+    if (fn.pasoAPaso) {
+      ejemploWrap.remove();
+
+      const situacionEl = pasoWrap.querySelector('[data-role="situacion"]');
+      if (fn.pasoAPaso.situacion) {
+        situacionEl.textContent = fn.pasoAPaso.situacion;
+      } else {
+        situacionEl.remove();
+      }
+
+      const ol = pasoWrap.querySelector('[data-role="pasos"]');
+      fn.pasoAPaso.steps.forEach((s) => {
         const li = document.createElement('li');
-        li.textContent = l;
-        ul.appendChild(li);
+        const [label, desc] = s.split('\n');
+        const strong = document.createElement('span');
+        strong.className = 'step-label';
+        strong.textContent = label;
+        li.appendChild(strong);
+        if (desc) {
+          const small = document.createElement('span');
+          small.className = 'step-desc';
+          small.textContent = desc;
+          li.appendChild(small);
+        }
+        ol.appendChild(li);
       });
-    } else { ejemploWrap.remove(); }
+
+      if (fn.pasoAPaso.explicacion) {
+        pasoWrap.querySelector('[data-role="explicacion"]').textContent = fn.pasoAPaso.explicacion;
+      } else {
+        pasoWrap.querySelector('[data-role="explicacionWrap"]').remove();
+      }
+    } else {
+      pasoWrap.remove();
+      if (fn.ejemplo && fn.ejemplo.length) {
+        const ul = ejemploWrap.querySelector('[data-role="ejemplo"]');
+        fn.ejemplo.forEach((l) => {
+          const li = document.createElement('li');
+          li.textContent = l;
+          ul.appendChild(li);
+        });
+      } else {
+        ejemploWrap.remove();
+      }
+    }
 
     if (fn.consejo) {
       root.querySelector('[data-role="consejo"]').textContent = fn.consejo;
