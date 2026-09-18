@@ -1,0 +1,86 @@
+[
+  {
+    "id": "exportar-csv",
+    "titulo": "Exportar tu archivo de Excel a CSV",
+    "temas": ["exportar", "csv", "guardar como csv", "convertir a csv", "descargar csv"],
+    "resumen": "Cómo guardar tu hoja de Excel en formato CSV para usarla en otros sistemas.",
+    "pasos": [
+      "Antes de exportar, deja tus datos en formato de tabla simple: una fila de encabezados y una fila por registro, sin celdas combinadas ni filas/columnas vacías en medio (eso rompe la lectura en otros programas).",
+      "Ve a Archivo > Guardar como (o Guardar una copia).",
+      "En 'Tipo', elige 'CSV UTF-8 (delimitado por comas) (*.csv)'. Usa la variante UTF-8 si tu texto tiene tildes o ñ, para que no se vean caracteres raros al abrirlo en otro sistema.",
+      "Si tu archivo tiene varias hojas, recuerda que el CSV solo guarda la hoja activa: repite el proceso por cada hoja que necesites exportar por separado.",
+      "Excel te avisará que el CSV no soporta varias hojas ni formato: eso es normal, solo se guardan los valores y el texto.",
+      "Abre el archivo generado con el Bloc de notas para confirmar que las comas y tildes se ven bien antes de subirlo a otro sistema."
+    ],
+    "consejo": "Si el sistema destino usa punto y coma en vez de coma como separador (común en configuraciones regionales en español), elige 'CSV (delimitado por punto y coma)' en el tipo de archivo, o cambia el separador de listas en Configuración regional de Windows."
+  },
+  {
+    "id": "excel-a-powerbi",
+    "titulo": "Pasar datos de Excel a Power BI",
+    "temas": ["power bi", "powerbi", "conectar power bi", "importar a power bi", "dashboard power bi"],
+    "resumen": "Cómo llevar tu información de Excel a Power BI para armar reportes y dashboards.",
+    "pasos": [
+      "Deja tu tabla de Excel como una tabla estructurada: selecciona el rango y usa Insertar > Tabla (Ctrl+T), o exporta a CSV como se explica en la guía de exportar a CSV.",
+      "Abre Power BI Desktop y ve a Inicio > Obtener datos > Excel (o 'Texto/CSV' si exportaste a CSV).",
+      "Selecciona tu archivo, y en la ventana de vista previa elige la hoja o tabla que quieres importar.",
+      "Haz clic en 'Transformar datos' para abrir el Editor de Poder Query antes de cargar: ahí puedes quitar columnas que no necesitas, corregir tipos de dato (texto, número, fecha) y renombrar columnas.",
+      "Haz clic en 'Cerrar y aplicar' para cargar los datos al modelo de Power BI.",
+      "Si vas a actualizar el archivo de Excel origen seguido, Power BI puede refrescar los datos con el botón 'Actualizar', siempre que el archivo esté en la misma ruta o en OneDrive/SharePoint."
+    ],
+    "consejo": "Si combinas varias tablas de Excel (por ejemplo ventas y productos), hazlo en Power BI con relaciones en el modelo de datos en lugar de mezclarlas antes con BUSCARV: es más rápido y evita que los archivos de Excel se vuelvan pesados."
+  },
+  {
+    "id": "excel-a-erp",
+    "titulo": "Combinar o cargar datos de Excel con un sistema ERP",
+    "temas": ["erp", "sistema erp", "cargar erp", "importar erp", "sap", "integrar erp"],
+    "resumen": "Cómo preparar y cargar información de Excel hacia un ERP (SAP, Odoo, Defontana, Bsale, etc.), o cómo bajar reportes del ERP y trabajarlos en Excel.",
+    "pasos": [
+      "Revisa la plantilla de importación que pide tu ERP (casi todos los ERP tienen una plantilla de Excel o CSV con columnas fijas: código, descripción, cantidad, precio, etc.). Descárgala desde el propio sistema si está disponible.",
+      "Ordena tus datos en Excel para que coincidan exactamente con esas columnas y ese orden; usa BUSCARV, INDICE+COINCIDIR o BUSCARX para traer datos desde otras hojas (por ejemplo, el código de producto desde tu maestro de productos).",
+      "Limpia los datos antes de subir: quita espacios extra con ESPACIOS, corrige mayúsculas con MAYUSC/MINUSC/NOMPROPIO, y revisa que no haya celdas vacías obligatorias usando CONTAR.BLANCO o formato condicional.",
+      "Guarda el archivo final como CSV o XLSX según lo que acepte el ERP (revisa si pide separador de comas, punto y coma, o tabulaciones).",
+      "Sube el archivo desde el módulo de importación del ERP (usualmente en Configuración > Importar/Exportar, o el módulo específico como Inventario, Ventas o Clientes).",
+      "Para el camino inverso (bajar un reporte del ERP a Excel), al abrirlo revisa que las columnas numéricas realmente sean números y no texto: usa Datos > Texto en columnas, o multiplica por 1 en una celda auxiliar para forzar la conversión."
+    ],
+    "consejo": "Guarda un archivo de Excel 'maestro' con fórmulas ya armadas que solo necesites actualizar con los datos nuevos cada vez (pegando como valores antes de exportar). Así evitas rearmar la lógica cada carga."
+  },
+  {
+    "id": "power-query",
+    "titulo": "Power Query (Obtener y transformar datos)",
+    "temas": ["power query", "editor de consultas", "consultas", "combinar archivos", "transformar datos", "etl excel"],
+    "resumen": "Nota: Power Query no está incluido en el manual base cargado en ALLEXCEL. Esta es una guía general que complementa el uso de fórmulas.",
+    "pasos": [
+      "Power Query (pestaña Datos > Obtener datos) sirve para limpiar, combinar y transformar datos ANTES de que lleguen a tu hoja, a diferencia de las fórmulas que trabajan sobre datos ya puestos en celdas.",
+      "Úsalo en vez de fórmulas cuando: necesitas unir varios archivos o pestañas automáticamente, limpiar datos repetitivos cada vez que llega información nueva, o combinar tablas de distintas fuentes (Excel, CSV, base de datos, carpeta).",
+      "Flujo típico: Datos > Obtener datos > elige la fuente > en el Editor de Power Query aplica pasos (quitar columnas, cambiar tipos, dividir columnas, agrupar) > Cerrar y cargar.",
+      "Cada paso queda guardado como una receta: si mañana llega un archivo nuevo con la misma estructura, solo haces clic en 'Actualizar' y Power Query repite todos los pasos automáticamente."
+    ],
+    "consejo": "Si te encuentras copiando y pegando el mismo proceso de limpieza cada semana, es una señal clara de que te conviene Power Query en vez de fórmulas manuales."
+  },
+  {
+    "id": "calcular-edad-antiguedad",
+    "titulo": "Calcular edad o antigüedad a partir de una fecha",
+    "temas": ["calcular edad", "edad a partir de", "fecha de nacimiento", "antiguedad", "antigüedad", "años de servicio", "tiempo transcurrido"],
+    "resumen": "Nota: la función SIFECHA (DATEDIF) tampoco está en el manual base cargado en ALLEXCEL; esta es una guía general.",
+    "pasos": [
+      "Usa la función SIFECHA (en inglés DATEDIF), que calcula la diferencia entre dos fechas en años, meses o días completos: =SIFECHA(fecha_inicio, fecha_fin, unidad).",
+      "Para la edad de una persona: =SIFECHA(A2, HOY(), \"Y\") — donde A2 tiene la fecha de nacimiento y \"Y\" pide el resultado en años completos.",
+      "Para antigüedad laboral en años y meses: combina dos SIFECHA, uno con \"Y\" (años) y otro con \"YM\" (meses restantes que no completan un año).",
+      "Si prefieres no usar SIFECHA (Excel no la muestra en autocompletado porque es una función heredada, aunque funciona igual), puedes aproximar con la función DIAS del manual: =DIAS(HOY(), A2)/365, aunque el resultado no es tan exacto por los años bisiestos."
+    ],
+    "consejo": "SIFECHA no aparece en la lista de autocompletado de Excel, pero se puede escribir igual y funciona perfectamente en todas las versiones modernas."
+  },
+  {
+    "id": "macros-vba",
+    "titulo": "Macros y VBA",
+    "temas": ["macro", "macros", "vba", "automatizar excel", "grabar macro"],
+    "resumen": "Nota: las macros tampoco están incluidas en el manual base cargado en ALLEXCEL. Esta es una guía general de orientación, no un curso de programación VBA.",
+    "pasos": [
+      "Una macro graba una secuencia de acciones (clics, formato, fórmulas) para repetirla con un solo botón. Se activa desde la pestaña Programador (Archivo > Opciones > Cinta de opciones > activa 'Programador').",
+      "Para empezar sin programar: Programador > Grabar macro, realiza las acciones una vez, y detén la grabación. Excel genera el código VBA automáticamente.",
+      "Usa macros cuando la tarea es repetitiva y no se puede resolver con una fórmula o con Power Query (por ejemplo, dar formato a un reporte, enviar correos desde Excel, o mover archivos).",
+      "Guarda el archivo como .xlsm (libro habilitado para macros) para que la macro se conserve."
+    ],
+    "consejo": "Antes de recurrir a una macro, revisa si el mismo resultado se logra con una fórmula o con Power Query: suelen ser más fáciles de mantener y no requieren habilitar macros (que muchas empresas bloquean por seguridad)."
+  }
+]

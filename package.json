@@ -1,0 +1,13 @@
+{
+  "name": "allexcel",
+  "version": "1.0.0",
+  "description": "ALLEXCEL — asistente local (sin costo) que sugiere fórmulas de Excel y cómo combinarlas, y guía para exportar a CSV, Power BI o un ERP.",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
