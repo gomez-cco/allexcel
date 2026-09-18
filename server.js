@@ -16,6 +16,8 @@ const MIME = {
   '.svg': 'image/svg+xml',
   '.png': 'image/png',
   '.ico': 'image/x-icon',
+  '.webp': 'image/webp',
+  '.webmanifest': 'application/manifest+json; charset=utf-8',
 };
 
 function sendJSON(res, status, data) {

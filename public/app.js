@@ -265,7 +265,7 @@
 
   // ---------- Welcome message ----------
   addAssistantAnswer({
-    greeting: '¡Hola! Soy ALLEXCEL.',
+    greeting: '¡Hola! Soy GASPI, dime cómo te puedo ayudar.',
     body: 'Cuéntame qué necesitas lograr en tu Excel y te propongo qué fórmula usar, cómo combinarlas, o el paso a paso si quieres exportar a CSV, pasar tus datos a Power BI o cargarlos a un ERP.',
     items: [],
   });
