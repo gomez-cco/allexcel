@@ -7,6 +7,7 @@
   const sidebar = document.getElementById('sidebar');
   const sidebarBackdrop = document.getElementById('sidebarBackdrop');
   const menuToggle = document.getElementById('menuToggle');
+  const newChatBtn = document.getElementById('newChatBtn');
   const fontUp = document.getElementById('fontUp');
   const fontDown = document.getElementById('fontDown');
   const themeToggle = document.getElementById('themeToggle');
@@ -263,10 +264,23 @@
   }
   loadTopics();
 
-  // ---------- Welcome message ----------
-  addAssistantAnswer({
-    greeting: '¡Hola! Soy GASPI, dime cómo te puedo ayudar.',
-    body: 'Cuéntame qué necesitas lograr en tu Excel y te propongo qué fórmula usar, cómo combinarlas, o el paso a paso si quieres exportar a CSV, pasar tus datos a Power BI o cargarlos a un ERP.',
-    items: [],
+  // ---------- Welcome message / new conversation ----------
+  function showWelcome() {
+    messagesEl.innerHTML = '';
+    addAssistantAnswer({
+      greeting: '¡Hola! Soy GASPI, dime cómo te puedo ayudar.',
+      body: 'Cuéntame qué necesitas lograr en tu Excel y te propongo qué fórmula usar, cómo combinarlas, o el paso a paso si quieres exportar a CSV, pasar tus datos a Power BI o cargarlos a un ERP.',
+      items: [],
+    });
+  }
+
+  newChatBtn.addEventListener('click', () => {
+    showWelcome();
+    input.value = '';
+    input.style.height = 'auto';
+    input.focus();
+    closeSidebar();
   });
+
+  showWelcome();
 })();
