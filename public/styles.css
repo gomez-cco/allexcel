@@ -204,6 +204,30 @@ body {
 .step-desc { color: var(--text-muted); font-size: 0.85rem; }
 .paso-explicacion { margin-top: 0.6rem; }
 
+.mini-table-wrap { margin: 0.5rem 0 0.7rem; overflow-x: auto; }
+.mini-table {
+  border-collapse: collapse; font-size: 0.82rem;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+.mini-table th, .mini-table td {
+  border: 1px solid var(--border); padding: 0.3rem 0.55rem; text-align: left; white-space: nowrap;
+}
+.mini-table thead th {
+  background: var(--pill-bg); color: var(--pill-text); font-weight: 700; text-align: center;
+}
+.mini-table tbody th {
+  background: var(--pill-bg); color: var(--pill-text); font-weight: 700; text-align: center;
+}
+.mini-table tbody td { background: var(--surface); color: var(--text); }
+
+.formula-completa {
+  margin-top: 0.7rem; padding: 0.65rem 0.75rem; border-radius: 10px;
+  background: var(--accent-soft); border: 1.5px solid var(--accent);
+}
+.formula-completa-label { font-size: 0.78rem; font-weight: 700; color: var(--accent); }
+.formula-completa .code-block { margin: 0.4rem 0 0.3rem; }
+.formula-completa-resultado { margin: 0; font-size: 0.85rem; color: var(--text); }
+
 .card-details { margin-top: 0.5rem; font-size: 0.87rem; }
 .card-details summary { cursor: pointer; color: var(--accent); font-weight: 600; }
 .card-details ul { margin: 0.4rem 0 0; padding-left: 1.1rem; color: var(--text-muted); }

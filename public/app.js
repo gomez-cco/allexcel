@@ -115,6 +115,39 @@
         situacionEl.remove();
       }
 
+      const tablaWrap = pasoWrap.querySelector('[data-role="tablaWrap"]');
+      if (fn.pasoAPaso.tabla) {
+        const { columns, rows } = fn.pasoAPaso.tabla;
+        const table = tablaWrap.querySelector('[data-role="tabla"]');
+        const thead = document.createElement('thead');
+        const headRow = document.createElement('tr');
+        headRow.appendChild(document.createElement('th'));
+        columns.forEach((c) => {
+          const th = document.createElement('th');
+          th.textContent = c;
+          headRow.appendChild(th);
+        });
+        thead.appendChild(headRow);
+        table.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
+        rows.forEach((r) => {
+          const tr = document.createElement('tr');
+          const th = document.createElement('th');
+          th.textContent = r.num;
+          tr.appendChild(th);
+          r.cells.forEach((c) => {
+            const td = document.createElement('td');
+            td.textContent = c;
+            tr.appendChild(td);
+          });
+          tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+      } else {
+        tablaWrap.remove();
+      }
+
       const ol = pasoWrap.querySelector('[data-role="pasos"]');
       fn.pasoAPaso.steps.forEach((s) => {
         const li = document.createElement('li');
@@ -136,6 +169,17 @@
         pasoWrap.querySelector('[data-role="explicacion"]').textContent = fn.pasoAPaso.explicacion;
       } else {
         pasoWrap.querySelector('[data-role="explicacionWrap"]').remove();
+      }
+
+      if (fn.pasoAPaso.formulaCompleta) {
+        pasoWrap.querySelector('[data-role="formulaCompleta"]').textContent = fn.pasoAPaso.formulaCompleta;
+        if (fn.pasoAPaso.resultado) {
+          pasoWrap.querySelector('[data-role="resultado"]').textContent = fn.pasoAPaso.resultado;
+        } else {
+          pasoWrap.querySelector('[data-role="resultadoWrap"]').remove();
+        }
+      } else {
+        pasoWrap.querySelector('[data-role="formulaCompletaWrap"]').remove();
       }
     } else {
       pasoWrap.remove();
