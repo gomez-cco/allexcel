@@ -282,6 +282,7 @@
   wakeServer();
 
   async function ask(message) {
+    closeSidebar();
     addUserMessage(message);
     const typing = addAssistantTyping();
 
