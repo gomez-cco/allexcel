@@ -272,23 +272,50 @@
     return wrap;
   }
 
+  // The free hosting tier "sleeps" the server after inactivity, so the first request
+  // after a while can take up to ~50s to wake it up. Ping it as soon as the page loads
+  // (before the user finishes reading/typing) so it's usually already awake by the time
+  // they hit send, and let the typing indicator explain the delay if it isn't.
+  function wakeServer() {
+    fetch('/api/health', { cache: 'no-store' }).catch(() => {});
+  }
+  wakeServer();
+
   async function ask(message) {
     addUserMessage(message);
     const typing = addAssistantTyping();
+
+    const slowNotice = setTimeout(() => {
+      const bubble = typing.querySelector('.bubble');
+      if (bubble) bubble.textContent = 'Pensando… el servidor estaba dormido y está despertando, puede tardar hasta un minuto la primera vez.';
+    }, 6000);
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 60000);
+
     try {
       const res = await fetch('/api/ask', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message }),
+        signal: controller.signal,
       });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
+      clearTimeout(slowNotice);
+      clearTimeout(timeoutId);
       typing.remove();
       addAssistantAnswer(data.answer);
     } catch (err) {
+      clearTimeout(slowNotice);
+      clearTimeout(timeoutId);
       typing.remove();
+      const timedOut = err && err.name === 'AbortError';
       addAssistantAnswer({
         greeting: 'Ups.',
-        body: 'Tuve un problema para responder tu consulta. Intenta de nuevo en un momento.',
+        body: timedOut
+          ? 'El servidor está tardando más de lo normal en responder (puede estar despertando). Espera unos segundos y vuelve a enviar tu consulta.'
+          : 'Tuve un problema de conexión para responder tu consulta. Revisa tu internet e intenta de nuevo.',
         items: [],
       });
     }

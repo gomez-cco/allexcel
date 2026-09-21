@@ -60,6 +60,11 @@ const server = http.createServer(async (req, res) => {
   const pathname = url.pathname;
 
   try {
+    if (pathname === '/api/health' && req.method === 'GET') {
+      sendJSON(res, 200, { ok: true });
+      return;
+    }
+
     if (pathname === '/api/ask' && req.method === 'POST') {
       const raw = await readBody(req);
       let message = '';
