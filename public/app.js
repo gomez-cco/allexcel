@@ -322,20 +322,27 @@
     }
   }
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
+  function submitComposer() {
     const text = input.value.trim();
     if (!text) return;
     input.value = '';
     input.style.height = 'auto';
     ask(text);
     closeSidebar();
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    submitComposer();
   });
 
+  // Avoid HTMLFormElement.requestSubmit() here: it's not supported on Safari/WebKit
+  // before version 16 (2022), which silently breaks Enter-to-send on older iPhones
+  // (this includes Chrome on iOS, since every iOS browser runs on WebKit).
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      form.requestSubmit();
+      submitComposer();
     }
   });
   input.addEventListener('input', () => {

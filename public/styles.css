@@ -259,7 +259,10 @@ body {
   flex: 1; resize: none; max-height: 8.5rem;
   padding: 0.6rem 0.8rem; border-radius: var(--radius);
   border: 1px solid var(--border); background: var(--surface-alt);
-  color: var(--text); font-size: 0.95rem; font-family: inherit;
+  color: var(--text); font-family: inherit;
+  /* Never let this drop below 16px: iOS Safari auto-zooms on focus for inputs
+     under 16px, which can visually break the layout right as the keyboard opens. */
+  font-size: max(16px, 0.95rem);
 }
 .composer textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
 
