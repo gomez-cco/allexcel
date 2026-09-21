@@ -58,19 +58,6 @@
     "consejo": "Si te encuentras copiando y pegando el mismo proceso de limpieza cada semana, es una señal clara de que te conviene Power Query en vez de fórmulas manuales."
   },
   {
-    "id": "calcular-edad-antiguedad",
-    "titulo": "Calcular edad o antigüedad a partir de una fecha",
-    "temas": ["calcular edad", "edad a partir de", "fecha de nacimiento", "antiguedad", "antigüedad", "años de servicio", "tiempo transcurrido"],
-    "resumen": "Nota: la función SIFECHA (DATEDIF) tampoco está en el manual base cargado en ALLEXCEL; esta es una guía general.",
-    "pasos": [
-      "Usa la función SIFECHA (en inglés DATEDIF), que calcula la diferencia entre dos fechas en años, meses o días completos: =SIFECHA(fecha_inicio, fecha_fin, unidad).",
-      "Para la edad de una persona: =SIFECHA(A2, HOY(), \"Y\") — donde A2 tiene la fecha de nacimiento y \"Y\" pide el resultado en años completos.",
-      "Para antigüedad laboral en años y meses: combina dos SIFECHA, uno con \"Y\" (años) y otro con \"YM\" (meses restantes que no completan un año).",
-      "Si prefieres no usar SIFECHA (Excel no la muestra en autocompletado porque es una función heredada, aunque funciona igual), puedes aproximar con la función DIAS del manual: =DIAS(HOY(), A2)/365, aunque el resultado no es tan exacto por los años bisiestos."
-    ],
-    "consejo": "SIFECHA no aparece en la lista de autocompletado de Excel, pero se puede escribir igual y funciona perfectamente en todas las versiones modernas."
-  },
-  {
     "id": "macros-vba",
     "titulo": "Macros y VBA",
     "temas": ["macro", "macros", "vba", "automatizar excel", "grabar macro"],

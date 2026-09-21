@@ -256,6 +256,70 @@
           ],
           "variaciones": "Se puede combinar con funciones lógicas para crear escenarios simulados, por ejemplo eligiendo entre un escenario 'Optimista', 'Base' o 'Pesimista' según un número que el usuario ingresa.",
           "raw": "ELEGIR  (CHOOSE)\n¿Qué hace? Elige un valor de una lista según el número de posición que le indiques. Es como decir 'de esta lista de opciones, dame la número 2'.\nSintaxis:\n=ELEGIR(núm_índice, valor1, [valor2], ...)\nArgumentos:\nnúm_índice: el número de la posición que quieres obtener (1 para el primer valor, 2 para el segundo, etc.).\nvalor1, valor2, ...: la lista de opciones entre las que Excel va a elegir.\nEjemplo paso a paso:\nSituación: Quieres convertir el número de mes (1, 2, 3...) en su nombre.\nA\n1\n3\nFórmula: \n=ELEGIR(A1, \"Enero\", \"Febrero\", \"Marzo\", \"Abril\")\nResultado: Marzo\nExplicación: A1 contiene el número 3, así que ELEGIR devuelve el tercer valor de la lista: \"Marzo\".\n💡 Consejo del profesor\nELEGIR es práctica para listas cortas y fijas (como los días de la semana o categorías de un semáforo de estado). Si la lista es larga o cambia seguido, es mejor usar BUSCARV o BUSCARX con una tabla de referencia.\nVariaciones útiles: Se puede combinar con funciones lógicas para crear escenarios simulados, por ejemplo eligiendo entre un escenario 'Optimista', 'Base' o 'Pesimista' según un número que el usuario ingresa."
+        },
+        {
+          "name": "BUSCAR",
+          "alias": "LOOKUP",
+          "header": "BUSCAR  (LOOKUP)",
+          "queHace": "Busca un valor en un rango de una sola fila o columna y te devuelve el valor correspondiente de otro rango del mismo tamaño. Es la versión más simple y antigua de búsqueda, hoy reemplazada casi siempre por BUSCARV o BUSCARX.",
+          "sintaxis": "=BUSCAR(valor_buscado, vector_de_comparación, [vector_resultado])",
+          "argumentos": [
+            "valor_buscado: lo que quieres encontrar.",
+            "vector_de_comparación: el rango donde buscar (debe estar ordenado de menor a mayor).",
+            "vector_resultado: el rango de donde traer el dato, del mismo tamaño que el anterior."
+          ],
+          "ejemplo": [
+            "Situación: Quieres el precio de \"Peras\" usando la forma más simple de búsqueda de Excel.",
+            "A",
+            "B",
+            "1",
+            "Manzanas",
+            "1500",
+            "2",
+            "Peras",
+            "2000",
+            "3",
+            "Uvas",
+            "3000",
+            "Fórmula: ",
+            "=BUSCAR(\"Peras\", A1:A3, B1:B3)",
+            "Resultado: 2000",
+            "Explicación: BUSCAR encuentra \"Peras\" en A1:A3 y devuelve el valor que está en la misma posición dentro de B1:B3."
+          ],
+          "consejo": [
+            "BUSCAR necesita que el rango de búsqueda esté ordenado; si no lo está, puede dar resultados incorrectos sin avisarte. Por eso hoy se prefiere BUSCARV o BUSCARX."
+          ],
+          "variaciones": "Existe también en su forma de matriz (=BUSCAR(valor, matriz)), pero casi nadie la usa así; mejor usa siempre la forma con dos vectores separados.",
+          "raw": ""
+        },
+        {
+          "name": "TRANSPONER",
+          "alias": "TRANSPOSE",
+          "header": "TRANSPONER  (TRANSPOSE)",
+          "queHace": "Convierte una fila en columna o una columna en fila, invirtiendo la orientación de un rango completo de una sola vez.",
+          "sintaxis": "=TRANSPONER(matriz)",
+          "argumentos": [
+            "matriz: el rango que quieres invertir de fila a columna (o viceversa)."
+          ],
+          "ejemplo": [
+            "Situación: Tienes los meses escritos en una sola fila y necesitas que queden en una columna.",
+            "A",
+            "B",
+            "C",
+            "1",
+            "Enero",
+            "Febrero",
+            "Marzo",
+            "Fórmula: ",
+            "=TRANSPONER(A1:C1)",
+            "Resultado: Enero, Febrero y Marzo quedan uno debajo del otro, en A1:A3",
+            "Explicación: TRANSPONER voltea el rango: lo que estaba en 3 columnas de la fila 1 ahora ocupa 3 filas de una sola columna."
+          ],
+          "consejo": [
+            "En Excel moderno (con matrices dinámicas) solo escribes la fórmula en la primera celda y presionas Enter; se expande sola. En versiones antiguas hay que seleccionar todo el rango de destino primero y confirmar con Ctrl+Shift+Enter."
+          ],
+          "variaciones": "Útil para pegar datos que copiaste de una tabla horizontal y necesitas verticales, sin copiar y pegar celda por celda.",
+          "raw": ""
         }
       ]
     },
@@ -795,6 +859,149 @@
           ],
           "variaciones": "Se usan para simulaciones, sorteos, generación de datos de prueba y muestras aleatorias.",
           "raw": "ALEATORIO y ALEATORIO.ENTRE  (RAND and RANDBETWEEN)\n¿Qué hace? ALEATORIO genera un número decimal aleatorio entre 0 y 1. ALEATORIO.ENTRE genera un número entero aleatorio dentro del rango que le indiques.\nSintaxis:\n=ALEATORIO()   /   =ALEATORIO.ENTRE(inferior, superior)\nArgumentos:\nALEATORIO no lleva argumentos.\ninferior y superior: los límites entre los que quieres el número entero aleatorio.\nEjemplo paso a paso:\nSituación: Quieres sortear un número de boleto entre 1 y 100.\nA\n1\n(vacío)\nFórmula: \n=ALEATORIO.ENTRE(1, 100)\nResultado: Un número entre 1 y 100 (cambia cada vez que se recalcula la hoja)\nExplicación: Excel elige al azar cualquier número entero dentro del rango indicado, incluyendo los extremos.\n💡 Consejo del profesor\nEstas funciones se recalculan cada vez que haces cualquier cambio en la hoja, así que el número cambiará solo. Si quieres 'congelar' el resultado, copia la celda y pégala como valor (Pegado especial > Valores).\nVariaciones útiles: Se usan para simulaciones, sorteos, generación de datos de prueba y muestras aleatorias."
+        },
+        {
+          "name": "PROMEDIO.SI.CONJUNTO",
+          "alias": "AVERAGEIFS",
+          "header": "PROMEDIO.SI.CONJUNTO  (AVERAGEIFS)",
+          "queHace": "Calcula el promedio de las celdas que cumplen varias condiciones a la vez, todas simultáneamente.",
+          "sintaxis": "=PROMEDIO.SI.CONJUNTO(rango_promedio, rango_criterio1, criterio1, [rango_criterio2, criterio2], ...)",
+          "argumentos": [
+            "rango_promedio: el rango de celdas que se van a promediar.",
+            "rango_criterio1 / criterio1: el primer par de rango y condición.",
+            "Puedes agregar más pares de rango/criterio según necesites."
+          ],
+          "ejemplo": [
+            "Situación: Quieres el promedio de las ventas de \"Juan\", pero solo las mayores a 500.",
+            "A",
+            "B",
+            "1",
+            "Vendedor",
+            "Venta",
+            "2",
+            "Juan",
+            "1000",
+            "3",
+            "Ana",
+            "1500",
+            "4",
+            "Juan",
+            "800",
+            "Fórmula: ",
+            "=PROMEDIO.SI.CONJUNTO(B2:B4, A2:A4, \"Juan\", B2:B4, \">500\")",
+            "Resultado: 900",
+            "Explicación: Las dos ventas de Juan (1000 y 800) son mayores a 500, y su promedio es (1000+800)/2 = 900."
+          ],
+          "consejo": [
+            "El orden es igual que en SUMAR.SI.CONJUNTO: el rango a promediar va primero, antes de los pares de condición."
+          ],
+          "variaciones": "Si necesitas el promedio sin ninguna condición, usa PROMEDIO a secas.",
+          "raw": ""
+        },
+        {
+          "name": "SUMAPRODUCTO",
+          "alias": "SUMPRODUCT",
+          "header": "SUMAPRODUCTO  (SUMPRODUCT)",
+          "queHace": "Multiplica los valores de dos o más rangos posición por posición, y después suma todos esos resultados. Sirve para calcular totales como \"cantidad por precio\" sin crear una columna auxiliar.",
+          "sintaxis": "=SUMAPRODUCTO(matriz1, [matriz2], ...)",
+          "argumentos": [
+            "matriz1: el primer rango de valores.",
+            "matriz2: el segundo rango, que se multiplica posición por posición con el primero."
+          ],
+          "ejemplo": [
+            "Situación: Quieres el total de una venta sin crear una columna extra que multiplique cantidad por precio en cada fila.",
+            "A",
+            "B",
+            "1",
+            "Cantidad",
+            "Precio",
+            "2",
+            "3",
+            "1000",
+            "3",
+            "5",
+            "500",
+            "4",
+            "2",
+            "2000",
+            "Fórmula: ",
+            "=SUMAPRODUCTO(A2:A4, B2:B4)",
+            "Resultado: 9500",
+            "Explicación: Multiplica 3×1000 + 5×500 + 2×2000 = 3000+2500+4000 = 9500, todo en una sola fórmula."
+          ],
+          "consejo": [
+            "Los rangos deben tener exactamente el mismo tamaño (misma cantidad de filas y columnas); si no, Excel muestra un error."
+          ],
+          "variaciones": "También sirve para contar coincidencias entre varias condiciones sin usar CONTAR.SI.CONJUNTO: =SUMAPRODUCTO((A2:A10=\"Juan\")*(B2:B10>500)).",
+          "raw": ""
+        },
+        {
+          "name": "CONTAR.BLANCO",
+          "alias": "COUNTBLANK",
+          "header": "CONTAR.BLANCO  (COUNTBLANK)",
+          "queHace": "Cuenta cuántas celdas están vacías dentro de un rango.",
+          "sintaxis": "=CONTAR.BLANCO(rango)",
+          "argumentos": [
+            "rango: el rango de celdas donde quieres contar las vacías."
+          ],
+          "ejemplo": [
+            "Situación: Tienes una lista de nombres pero algunas filas quedaron sin completar, y quieres saber cuántas.",
+            "A",
+            "1",
+            "Ana",
+            "2",
+            "(vacío)",
+            "3",
+            "Luis",
+            "4",
+            "(vacío)",
+            "Fórmula: ",
+            "=CONTAR.BLANCO(A1:A4)",
+            "Resultado: 2",
+            "Explicación: Excel cuenta las celdas realmente vacías del rango A1:A4: hay 2 (la fila 2 y la fila 4)."
+          ],
+          "consejo": [
+            "CONTAR.BLANCO también cuenta una celda que tiene una fórmula que da como resultado \"\" (texto vacío), no solo las que nunca se han tocado."
+          ],
+          "variaciones": "Combínala con formato condicional para resaltar en rojo las filas de tu tabla que aún tienen datos pendientes.",
+          "raw": ""
+        },
+        {
+          "name": "MAX.SI.CONJUNTO y MIN.SI.CONJUNTO",
+          "alias": "MAXIFS and MINIFS",
+          "header": "MAX.SI.CONJUNTO y MIN.SI.CONJUNTO  (MAXIFS and MINIFS)",
+          "queHace": "Encuentran el valor más alto (MAX.SI.CONJUNTO) o más bajo (MIN.SI.CONJUNTO) dentro de un rango, pero solo considerando las filas que cumplen una o más condiciones.",
+          "sintaxis": "=MAX.SI.CONJUNTO(rango_max, rango_criterio1, criterio1, ...)   /   =MIN.SI.CONJUNTO(rango_min, rango_criterio1, criterio1, ...)",
+          "argumentos": [
+            "rango_max / rango_min: el rango de donde se busca el valor más alto o más bajo.",
+            "rango_criterio1 / criterio1: el primer par de rango y condición."
+          ],
+          "ejemplo": [
+            "Situación: Quieres saber cuál fue la venta más alta de \"Juan\".",
+            "A",
+            "B",
+            "1",
+            "Vendedor",
+            "Venta",
+            "2",
+            "Juan",
+            "1000",
+            "3",
+            "Ana",
+            "1500",
+            "4",
+            "Juan",
+            "800",
+            "Fórmula: ",
+            "=MAX.SI.CONJUNTO(B2:B4, A2:A4, \"Juan\")",
+            "Resultado: 1000",
+            "Explicación: De las dos ventas de Juan (1000 y 800), la más alta es 1000."
+          ],
+          "consejo": [
+            "Antes de que existieran estas funciones, había que armar la misma lógica con una fórmula matricial de MAX+SI; ahora es mucho más directo."
+          ],
+          "variaciones": "MIN.SI.CONJUNTO funciona igual mirando el valor más bajo: =MIN.SI.CONJUNTO(B2:B4, A2:A4, \"Juan\") daría 800.",
+          "raw": ""
         }
       ]
     },
@@ -1224,6 +1431,58 @@
           ],
           "variaciones": "Combinada con REDONDEAR, puedes crear escalas visuales proporcionales a un puntaje o porcentaje.",
           "raw": "REPETIR  (REPEAT)\n¿Qué hace? Repite un texto la cantidad de veces que le indiques.\nSintaxis:\n=REPETIR(texto, núm_de_veces)\nArgumentos:\ntexto: lo que quieres repetir.\nnúm_de_veces: cuántas veces repetirlo.\nEjemplo paso a paso:\nSituación: Quieres crear una barra visual simple según un puntaje.\nA\n1\n4\nFórmula: \n=REPETIR(\"★\", A1)\nResultado: ★★★★\nExplicación: El símbolo de estrella se repite 4 veces, tantas como indica el valor de A1.\n💡 Consejo del profesor\nEs una forma sencilla de crear gráficos de barras 'de texto' dentro de una celda, sin necesidad de insertar un gráfico real.\nVariaciones útiles: Combinada con REDONDEAR, puedes crear escalas visuales proporcionales a un puntaje o porcentaje."
+        },
+        {
+          "name": "TEXTOANTES",
+          "alias": "TEXTBEFORE",
+          "header": "TEXTOANTES  (TEXTBEFORE)",
+          "queHace": "Extrae el texto que está ANTES de un carácter o palabra que tú indiques, sin tener que calcular la posición a mano.",
+          "sintaxis": "=TEXTOANTES(texto, delimitador)",
+          "argumentos": [
+            "texto: el texto completo del que quieres extraer una parte.",
+            "delimitador: el carácter o texto que marca dónde cortar (por ejemplo, un espacio o un @)."
+          ],
+          "ejemplo": [
+            "Situación: Tienes correos electrónicos y quieres quedarte solo con la parte antes de la arroba, para armar un usuario.",
+            "A",
+            "1",
+            "juan.perez@correo.com",
+            "Fórmula: ",
+            "=TEXTOANTES(A1, \"@\")",
+            "Resultado: juan.perez",
+            "Explicación: Corta el texto de A1 justo antes del símbolo \"@\", devolviendo todo lo que está a la izquierda."
+          ],
+          "consejo": [
+            "Si el delimitador no existe en el texto, TEXTOANTES da error; combínala con SI.ERROR para esos casos."
+          ],
+          "variaciones": "Su pareja es TEXTODESPUES, que hace lo mismo pero devuelve lo que está después del delimitador.",
+          "raw": ""
+        },
+        {
+          "name": "TEXTODESPUES",
+          "alias": "TEXTAFTER",
+          "header": "TEXTODESPUES  (TEXTAFTER)",
+          "queHace": "Extrae el texto que está DESPUÉS de un carácter o palabra que tú indiques.",
+          "sintaxis": "=TEXTODESPUES(texto, delimitador)",
+          "argumentos": [
+            "texto: el texto completo del que quieres extraer una parte.",
+            "delimitador: el carácter o texto que marca dónde empezar a extraer."
+          ],
+          "ejemplo": [
+            "Situación: Del mismo correo, ahora quieres quedarte solo con el dominio, la parte después de la arroba.",
+            "A",
+            "1",
+            "juan.perez@correo.com",
+            "Fórmula: ",
+            "=TEXTODESPUES(A1, \"@\")",
+            "Resultado: correo.com",
+            "Explicación: Devuelve todo el texto de A1 que está a la derecha del símbolo \"@\"."
+          ],
+          "consejo": [
+            "Funciona igual que TEXTOANTES pero mirando hacia el otro lado; ambas reemplazan combinaciones más largas de EXTRAE+ENCONTRAR."
+          ],
+          "variaciones": "Puedes usar un número negativo como tercer argumento opcional para contar el delimitador desde el final del texto.",
+          "raw": ""
         }
       ]
     },
@@ -1554,6 +1813,33 @@
           ],
           "variaciones": "Existe también ISO.NUM.DE.SEMANA, que sigue el estándar internacional ISO 8601, más preciso para reportes internacionales.",
           "raw": "NUM.DE.SEMANA  (WEEKNUM)\n¿Qué hace? Devuelve el número de semana del año al que pertenece una fecha.\nSintaxis:\n=NUM.DE.SEMANA(número_de_serie, [tipo])\nArgumentos:\nnúmero_de_serie: la fecha a evaluar.\ntipo: opcional, define si la semana empieza en domingo o lunes.\nEjemplo paso a paso:\nSituación: Quieres saber en qué número de semana del año cae una fecha, para un reporte semanal.\nA\n1\n17-09-2026\nFórmula: \n=NUM.DE.SEMANA(A1, 2)\nResultado: 38\nExplicación: El 17 de septiembre de 2026 cae en la semana número 38 del año (contando semanas que empiezan en lunes).\n💡 Consejo del profesor\nEs muy usada en reportes de producción o ventas organizados por semana en vez de por mes.\nVariaciones útiles: Existe también ISO.NUM.DE.SEMANA, que sigue el estándar internacional ISO 8601, más preciso para reportes internacionales."
+        },
+        {
+          "name": "SIFECHA",
+          "alias": "DATEDIF",
+          "header": "SIFECHA  (DATEDIF)",
+          "queHace": "Calcula la diferencia entre dos fechas en años, meses o días completos. Es la fórmula clásica para calcular edades o antigüedad, aunque Excel no la muestra en el autocompletado (es una función heredada, pero funciona perfecto).",
+          "sintaxis": "=SIFECHA(fecha_inicio, fecha_fin, unidad)",
+          "argumentos": [
+            "fecha_inicio: la fecha más antigua (por ejemplo, la fecha de nacimiento).",
+            "fecha_fin: la fecha más reciente (por ejemplo, HOY()).",
+            "unidad: \"Y\" para años completos, \"M\" para meses completos, \"D\" para días, \"YM\" para los meses que sobran sin completar un año."
+          ],
+          "ejemplo": [
+            "Situación: Quieres calcular la edad de una persona a partir de su fecha de nacimiento.",
+            "A",
+            "1",
+            "15-03-1990",
+            "Fórmula: ",
+            "=SIFECHA(A1, HOY(), \"Y\")",
+            "Resultado: 36 (depende de la fecha de hoy)",
+            "Explicación: SIFECHA cuenta cuántos años completos han pasado entre la fecha de A1 y hoy."
+          ],
+          "consejo": [
+            "SIFECHA no aparece en la lista de autocompletado de Excel, pero se puede escribir igual y funciona en todas las versiones modernas."
+          ],
+          "variaciones": "Para antigüedad en años y meses, combina dos SIFECHA: uno con \"Y\" y otro con \"YM\" para los meses que no completan un año.",
+          "raw": ""
         }
       ]
     },
@@ -2492,6 +2778,38 @@
           ],
           "variaciones": "DISTR.NORM.ESTAND.N hace lo mismo pero para la distribución normal 'estándar' (media 0, desviación estándar 1), muy usada en estadística inferencial.",
           "raw": "DISTR.NORM  (NORM.DIST)\n¿Qué hace? Calcula la probabilidad asociada a un valor dentro de una distribución normal (la clásica 'campana de Gauss'), dado un promedio y una desviación estándar.\nSintaxis:\n=DISTR.NORM.N(x, media, desv_estándar, acumulado)\nArgumentos:\nx: el valor que quieres evaluar.\nmedia: el promedio de la distribución.\ndesv_estándar: qué tan dispersos están los datos.\nacumulado: VERDADERO para la probabilidad acumulada hasta ese valor, FALSO para la altura exacta de la curva en ese punto.\nEjemplo paso a paso:\nSituación: Las notas de un curso siguen una distribución normal con promedio 5.0 y desviación estándar 0.8. Quieres saber qué porcentaje de alumnos sacó menos de 4.0.\nA\nB\nC\n1\n4.0\n5.0\n0.8\nFórmula: \n=DISTR.NORM.N(A1, B1, C1, VERDADERO)\nResultado: ≈10.6%\nExplicación: Aproximadamente el 10.6% de los alumnos, siguiendo esa distribución, tendría una nota menor a 4.0.\n💡 Consejo del profesor\nEsta función asume que tus datos siguen realmente una distribución normal; en la práctica conviene revisar primero un histograma para confirmar que la forma de campana es razonable antes de confiar en el resultado.\nVariaciones útiles: DISTR.NORM.ESTAND.N hace lo mismo pero para la distribución normal 'estándar' (media 0, desviación estándar 1), muy usada en estadística inferencial."
+        },
+        {
+          "name": "K.ESIMO.MAYOR y K.ESIMO.MENOR",
+          "alias": "LARGE and SMALL",
+          "header": "K.ESIMO.MAYOR y K.ESIMO.MENOR  (LARGE and SMALL)",
+          "queHace": "Te dan el valor que ocupa una posición específica en un rango ordenado: K.ESIMO.MAYOR para \"el N más grande\" y K.ESIMO.MENOR para \"el N más chico\", sin tener que ordenar la tabla a mano.",
+          "sintaxis": "=K.ESIMO.MAYOR(matriz, k)   /   =K.ESIMO.MENOR(matriz, k)",
+          "argumentos": [
+            "matriz: el rango de números donde buscar.",
+            "k: la posición que quieres (1 = el mayor o menor, 2 = el segundo, etc.)."
+          ],
+          "ejemplo": [
+            "Situación: Quieres saber cuál fue la segunda venta más alta de la lista.",
+            "A",
+            "1",
+            "1500",
+            "2",
+            "3000",
+            "3",
+            "2000",
+            "4",
+            "900",
+            "Fórmula: ",
+            "=K.ESIMO.MAYOR(A1:A4, 2)",
+            "Resultado: 2000",
+            "Explicación: Ordenando de mayor a menor (3000, 2000, 1500, 900), el segundo lugar es 2000."
+          ],
+          "consejo": [
+            "A diferencia de MAX, que solo te da el número 1 del ranking, K.ESIMO.MAYOR te deja pedir cualquier posición."
+          ],
+          "variaciones": "K.ESIMO.MENOR funciona igual pero desde el otro extremo: =K.ESIMO.MENOR(A1:A4, 2) daría 1500 (el segundo más bajo).",
+          "raw": ""
         }
       ]
     },
@@ -3137,6 +3455,40 @@
           ],
           "variaciones": "Combinada con LET dentro de su propio cálculo, puedes crear funciones personalizadas bastante sofisticadas sin necesidad de programar macros.",
           "raw": "LAMBDA  (LAMBDA)\n¿Qué hace? Te permite crear tu propia función personalizada, con su propio nombre y sus propios argumentos, reutilizable en toda tu hoja o incluso en todo tu archivo.\nSintaxis:\n=LAMBDA(parámetro1, [parámetro2, ...], cálculo)\nArgumentos:\nparámetro1, parámetro2...: los nombres de los valores que tu función recibirá.\ncálculo: la fórmula que se ejecutará usando esos parámetros.\nEjemplo paso a paso:\nSituación: Quieres crear tu propia función para calcular el precio final con IVA, sin escribir *1.19 cada vez.\nA\n1\n10000\nFórmula: \nDefinir en el Administrador de nombres: PRECIO_CON_IVA = LAMBDA(precio, precio*1.19). Luego usar: =PRECIO_CON_IVA(A1)\nResultado: 11900\nExplicación: Una vez definida y guardada con un nombre en el Administrador de nombres, PRECIO_CON_IVA funciona como cualquier otra función de Excel, en toda tu hoja.\n💡 Consejo del profesor\nLAMBDA es una función avanzada, pensada para quienes arman muchas hojas parecidas y quieren evitar repetir la misma lógica una y otra vez; para el uso diario básico no es imprescindible.\nVariaciones útiles: Combinada con LET dentro de su propio cálculo, puedes crear funciones personalizadas bastante sofisticadas sin necesidad de programar macros."
+        },
+        {
+          "name": "APILARV y APILARH",
+          "alias": "VSTACK and HSTACK",
+          "header": "APILARV y APILARH  (VSTACK and HSTACK)",
+          "queHace": "Unen varios rangos o tablas en uno solo: APILARV los apila uno debajo del otro (verticalmente), APILARH uno al lado del otro (horizontalmente).",
+          "sintaxis": "=APILARV(matriz1, matriz2, ...)   /   =APILARH(matriz1, matriz2, ...)",
+          "argumentos": [
+            "matriz1: el primer rango o tabla.",
+            "matriz2: el segundo rango o tabla, que se agrega a continuación del primero."
+          ],
+          "ejemplo": [
+            "Situación: Tienes los meses del primer semestre en la columna A y los del segundo semestre en la columna B, y quieres una sola lista vertical con los 6.",
+            "A",
+            "B",
+            "1",
+            "Enero",
+            "Julio",
+            "2",
+            "Febrero",
+            "Agosto",
+            "3",
+            "Marzo",
+            "Septiembre",
+            "Fórmula: ",
+            "=APILARV(A1:A3, B1:B3)",
+            "Resultado: Enero, Febrero, Marzo, Julio, Agosto y Septiembre, uno debajo del otro",
+            "Explicación: APILARV toma el rango A1:A3 y le agrega abajo el rango B1:B3, generando una sola columna con los 6 valores en orden."
+          ],
+          "consejo": [
+            "Los rangos no necesitan tener el mismo número de columnas para APILARV (rellena con #N/A los espacios que falten), pero conviene que representen el mismo tipo de dato."
+          ],
+          "variaciones": "APILARH hace lo mismo pero en horizontal, uniendo columna con columna en vez de fila con fila.",
+          "raw": ""
         }
       ]
     },
