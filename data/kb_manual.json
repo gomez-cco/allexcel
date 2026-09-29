@@ -1002,6 +1002,43 @@
           ],
           "variaciones": "MIN.SI.CONJUNTO funciona igual mirando el valor más bajo: =MIN.SI.CONJUNTO(B2:B4, A2:A4, \"Juan\") daría 800.",
           "raw": ""
+        },
+        {
+          "name": "SUBTOTALES",
+          "alias": "SUBTOTAL",
+          "header": "SUBTOTALES  (SUBTOTAL)",
+          "queHace": "Calcula sumas, promedios, conteos u otras operaciones sobre un rango, pero ignorando las filas que están ocultas por un filtro. Es la función que usa Excel automáticamente cuando aplicas Autofiltro y miras la barra de estado.",
+          "sintaxis": "=SUBTOTALES(núm_función, ref1, [ref2], ...)",
+          "argumentos": [
+            "núm_función: un número que indica qué operación hacer (9 = suma, 1 = promedio, 3 = contar valores, 4 = máximo, 5 = mínimo, entre otros).",
+            "ref1: el rango sobre el que se aplica la operación."
+          ],
+          "ejemplo": [
+            "Situación: Tienes una lista de ventas con un filtro aplicado que oculta la fila de \"Uvas\", y quieres sumar solo lo que se ve, sin las filas ocultas.",
+            "A",
+            "B",
+            "1",
+            "Producto",
+            "Venta",
+            "2",
+            "Manzanas",
+            "1000",
+            "3",
+            "Peras",
+            "1500",
+            "4",
+            "Uvas",
+            "800",
+            "Fórmula: ",
+            "=SUBTOTALES(9, B2:B4)",
+            "Resultado: 2500",
+            "Explicación: Con el código 9 (suma), SUBTOTALES suma solo las celdas visibles del rango B2:B4; como la fila de Uvas está oculta por el filtro, sus 800 no se cuentan."
+          ],
+          "consejo": [
+            "A diferencia de SUMA, SUBTOTALES ignora las filas ocultas por un filtro. Si además quieres ignorar filas ocultas manualmente (clic derecho > Ocultar), usa el código 109 en vez de 9."
+          ],
+          "variaciones": "Los códigos más comunes son 9 (suma), 1 (promedio), 3 (contar valores), 4 (máximo) y 5 (mínimo); Excel te sugiere la lista completa apenas empiezas a escribir la función.",
+          "raw": ""
         }
       ]
     },
